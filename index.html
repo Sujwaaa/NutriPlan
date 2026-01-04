@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NutriPlan - Perencana Pola Makan Nusantara</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+  <body>
+    <div id="app">
+      <!-- Hero Section -->
+      <section id="hero" class="hero">
+        <div class="batik-pattern"></div>
+        <div class="container">
+          <div class="hero-content">
+            <h1 class="hero-title">NutriPlan</h1>
+            <p class="hero-subtitle">Perencana Pola Makan Sehat Nusantara</p>
+            <p class="hero-description">Rencanakan pola makan harianmu dengan menu tradisional Indonesia yang lezat dan bergizi</p>
+            <button id="btnMulai" class="btn-primary">Mulai Sekarang</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Form Section -->
+      <section id="formSection" class="form-section hidden">
+        <div class="container">
+          <div class="form-card">
+            <h2 class="section-title">Data Diri Anda</h2>
+            <p class="section-subtitle">Isi data berikut untuk mendapatkan rekomendasi yang tepat</p>
+
+            <form id="userForm" class="user-form">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="nama">Nama</label>
+                  <input type="text" id="nama" name="nama" required placeholder="Masukkan nama Anda">
+                </div>
+
+                <div class="form-group">
+                  <label for="umur">Umur (tahun)</label>
+                  <input type="number" id="umur" name="umur" required min="15" max="100" placeholder="25">
+                </div>
+
+                <div class="form-group">
+                  <label for="jenisKelamin">Jenis Kelamin</label>
+                  <select id="jenisKelamin" name="jenisKelamin" required>
+                    <option value="">Pilih</option>
+                    <option value="pria">Pria</option>
+                    <option value="wanita">Wanita</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="beratBadan">Berat Badan (kg)</label>
+                  <input type="number" id="beratBadan" name="beratBadan" required min="30" max="300" step="0.1" placeholder="60">
+                </div>
+
+                <div class="form-group">
+                  <label for="tinggiBadan">Tinggi Badan (cm)</label>
+                  <input type="number" id="tinggiBadan" name="tinggiBadan" required min="100" max="250" placeholder="165">
+                </div>
+
+                <div class="form-group">
+                  <label for="aktivitas">Tingkat Aktivitas</label>
+                  <select id="aktivitas" name="aktivitas" required>
+                    <option value="">Pilih</option>
+                    <option value="1.2">Sangat Ringan (jarang olahraga)</option>
+                    <option value="1.375">Ringan (olahraga 1-3x/minggu)</option>
+                    <option value="1.55">Sedang (olahraga 3-5x/minggu)</option>
+                    <option value="1.725">Berat (olahraga 6-7x/minggu)</option>
+                    <option value="1.9">Sangat Berat (atlet)</option>
+                  </select>
+                </div>
+
+                <div class="form-group full-width">
+                  <label for="target">Target Anda</label>
+                  <div class="radio-group">
+                    <label class="radio-card">
+                      <input type="radio" name="target" value="turun" required>
+                      <span class="radio-content">
+                        <span class="radio-icon">📉</span>
+                        <span class="radio-text">Turun Berat</span>
+                      </span>
+                    </label>
+                    <label class="radio-card">
+                      <input type="radio" name="target" value="jaga" required>
+                      <span class="radio-content">
+                        <span class="radio-icon">⚖️</span>
+                        <span class="radio-text">Jaga Berat</span>
+                      </span>
+                    </label>
+                    <label class="radio-card">
+                      <input type="radio" name="target" value="naik" required>
+                      <span class="radio-content">
+                        <span class="radio-icon">📈</span>
+                        <span class="radio-text">Naik Berat</span>
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" id="btnKembali" class="btn-secondary">Kembali</button>
+                <button type="submit" class="btn-primary">Lihat Rekomendasi</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- Result Section -->
+      <section id="resultSection" class="result-section hidden">
+        <div class="container">
+          <div class="result-header">
+            <h2 class="section-title">Rekomendasi Untuk Anda</h2>
+            <button id="btnUlang" class="btn-secondary-small">Hitung Ulang</button>
+          </div>
+
+          <div class="result-grid">
+            <!-- Calorie Card -->
+            <div class="info-card">
+              <h3 class="card-title">Kebutuhan Kalori Harian</h3>
+              <div class="calorie-display">
+                <span id="calorieValue" class="calorie-value">0</span>
+                <span class="calorie-unit">kkal</span>
+              </div>
+              <div class="info-details">
+                <div class="info-item">
+                  <span class="info-label">BMR:</span>
+                  <span id="bmrValue" class="info-value">0 kkal</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Target:</span>
+                  <span id="targetValue" class="info-value">-</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Meal Plan Cards -->
+            <div class="meal-card">
+              <div class="meal-header">
+                <h3 class="meal-title">🌅 Sarapan</h3>
+                <span id="sarapanKalori" class="meal-calorie">0 kkal</span>
+              </div>
+              <div id="sarapanMenu" class="meal-content"></div>
+            </div>
+
+            <div class="meal-card">
+              <div class="meal-header">
+                <h3 class="meal-title">☀️ Makan Siang</h3>
+                <span id="siangKalori" class="meal-calorie">0 kkal</span>
+              </div>
+              <div id="siangMenu" class="meal-content"></div>
+            </div>
+
+            <div class="meal-card">
+              <div class="meal-header">
+                <h3 class="meal-title">🌙 Makan Malam</h3>
+                <span id="malamKalori" class="meal-calorie">0 kkal</span>
+              </div>
+              <div id="malamMenu" class="meal-content"></div>
+            </div>
+
+            <div class="meal-card">
+              <div class="meal-header">
+                <h3 class="meal-title">🥤 Snack</h3>
+                <span id="snackKalori" class="meal-calorie">0 kkal</span>
+              </div>
+              <div id="snackMenu" class="meal-content"></div>
+            </div>
+          </div>
+
+          <div class="result-footer">
+            <div class="tips-card">
+              <h3 class="tips-title">💡 Tips Sehat</h3>
+              <ul id="tipsList" class="tips-list"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
